@@ -17,6 +17,7 @@ public class ParsingDetails {
         this.mode =mode;
         this.filePath = Paths.get(filePath);
     }
+    
     public String toString(){
         return "You've chosen to display "+mode+"(s) from " + startWith+" to " +endWith+ " from "  + filePath;
     }
