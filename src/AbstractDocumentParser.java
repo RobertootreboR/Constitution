@@ -3,7 +3,7 @@ import java.nio.file.Path;
 /**
  * Created by robert on 05.12.16.
  */
-public abstract class AbstractDocumentParser {
+abstract class AbstractDocumentParser {
     protected boolean savingMode;
     protected boolean notFinishedYet;
     protected String startArticle;
@@ -11,27 +11,30 @@ public abstract class AbstractDocumentParser {
     protected Path filePath;
     protected String mode;
 
-    AbstractDocumentParser(ParsingDetails details){
-        this.savingMode =false;
+    protected AbstractDocumentParser(ParsingDetails details) {
+        this.savingMode = false;
         this.notFinishedYet = true;
-        this.filePath=details.filePath;
-        switch(details.mode){
-            case Article:
-
-                break;
-            case Chapter:
-                this.mode= "Rozdział ";
-                this.startArticle=details.fromRomanToString(details.startWith);
-                this.endArticle=details.fromRomanToString(details.endWith);
-
-        }
+        this.filePath = details.filePath;
     }
-
 
 
     protected boolean ifSavingMode(String e) {
-        if(e.startsWith(mode+startArticle)) savingMode=true;
-        if(e.startsWith(mode+endArticle)) notFinishedYet =false;
+        if (e.startsWith(mode + startArticle)) savingMode = true;
+        if (e.startsWith(mode + endArticle)) notFinishedYet = false;
         return (savingMode && notFinishedYet);
     }
+
+    protected static String formatLine(String s) {
+        if (!s.endsWith("-"))
+            return s + "\n";
+        else {
+            StringBuilder line = new StringBuilder(s);
+            line.deleteCharAt(line.length() - 1);         // deleting the '-' from the end of a line
+            int lastSpace = line.lastIndexOf(" ");       // finding last occurence of 'space', which is before the last word
+            line.setCharAt(lastSpace, '\n');             // replacing that space with new line
+            return new String(line);
+        }
+    }
+
 }
+

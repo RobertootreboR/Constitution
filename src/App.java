@@ -7,41 +7,31 @@ import java.io.IOException;
  */
 public class App {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
-        ArgumentParser parser  =new ArgumentParser();
         try {
-            ParsingDetails details = parser.parseArguments(args);
-            System.out.println(details.toString());
-
-
+            ParsingDetails details = new ArgumentParser().parseArguments(args);
+            System.out.println(details);
             System.out.print(parseDoc(details));
 
-
-
-        }catch(FileNotFoundException ex){
+        } catch (FileNotFoundException ex) {
             System.out.print(ex);
-        }catch(NumberFormatException ex){
-            System.out.print("2. and optionally 3. parameter must be numbers! " +ex);
-        }catch(IllegalArgumentException ex){
+        } catch (NumberFormatException ex) {
+            System.out.print("2. and optionally 3. parameter must be numbers! " + ex);
+        } catch (IllegalArgumentException ex) {
             System.out.print(ex);
-        }catch (IOException ex){
-        System.out.print("We have some problems with the file. Check if it's OK and try again " + ex);
-
+        } catch (IOException ex) {
+            System.out.print("We have some problems with the file. Check if it's OK and try again " + ex);
+            ex.printStackTrace();
+        }
     }
 
-
-
-    }
-
-    private static StringBuilder parseDoc(ParsingDetails details)throws IOException{
-        switch(details.mode){
+    private static StringBuilder parseDoc(ParsingDetails details) throws IOException {
+        switch (details.mode) {
             case Article:
-                ArticleParser docParserArt= new ArticleParser(details);
-                return docParserArt.searchForArticles();
+                return new ArticleParser(details).searchForArticles();
             case Chapter:
-                ChapterParser docParserChap = new ChapterParser(details);
-                return  docParserChap.searchForChapter();
+                return new ChapterParser(details).searchForChapter();
         }
         throw new IllegalArgumentException("something is wrong with Parsing Mode!");
     }
