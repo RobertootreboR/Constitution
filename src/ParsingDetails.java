@@ -51,6 +51,8 @@ class ParsingDetails {
                 return "XII";
             case 13:
                 return "XIII";
+            case 14:
+                return "XIV";
         }
         throw new IllegalArgumentException("the function \" fromRoman ToString \" function converts only numbers from 1 to 13.");
     }
