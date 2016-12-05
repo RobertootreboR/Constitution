@@ -13,19 +13,9 @@ public class App {
         try {
             ParsingDetails details = parser.parseArguments(args);
             System.out.println(details.toString());
-            try {
-                DocumentParser docParser= new DocumentParser(details);
-                StringBuilder caly = docParser.searchForArticles();
-                System.out.print(caly);
 
-            }catch (IOException ex){
-                System.out.print("blad!!1 "+ex);
-            }
 
-            if("lalala".matches("^[a-zA-Z]*")) {
-                System.out.println("owszem");
-
-            }
+            System.out.print(parseDoc(details));
 
 
 
@@ -35,9 +25,24 @@ public class App {
             System.out.print("2. and optionally 3. parameter must be numbers! " +ex);
         }catch(IllegalArgumentException ex){
             System.out.print(ex);
+        }catch (IOException ex){
+        System.out.print("We have some problems with the file. Check if it's OK and try again " + ex);
+
+    }
+
+
+
+    }
+
+    private static StringBuilder parseDoc(ParsingDetails details)throws IOException{
+        switch(details.mode){
+            case Article:
+                ArticleParser docParserArt= new ArticleParser(details);
+                return docParserArt.searchForArticles();
+            case Chapter:
+                ChapterParser docParserChap = new ChapterParser(details);
+                return  docParserChap.searchForChapter();
         }
-
-
-
+        throw new IllegalArgumentException("something is wrong with Parsing Mode!");
     }
 }
