@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 /**
@@ -11,7 +12,23 @@ public class App {
         ArgumentParser parser  =new ArgumentParser();
         try {
             ParsingDetails details = parser.parseArguments(args);
-            System.out.print(details.toString());
+            System.out.println(details.toString());
+            try {
+                DocumentParser docParser= new DocumentParser(details);
+                StringBuilder caly = docParser.searchForArticles();
+                System.out.print(caly);
+
+            }catch (IOException ex){
+                System.out.print("blad!!1 "+ex);
+            }
+
+            if("lalala".matches("^[a-zA-Z]*")) {
+                System.out.println("owszem");
+
+            }
+
+
+
         }catch(FileNotFoundException ex){
             System.out.print(ex);
         }catch(NumberFormatException ex){
@@ -19,6 +36,7 @@ public class App {
         }catch(IllegalArgumentException ex){
             System.out.print(ex);
         }
+
 
 
     }
