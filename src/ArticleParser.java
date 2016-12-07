@@ -18,7 +18,7 @@ class ArticleParser extends AbstractDocumentParser {
         return new StringBuilder(
                 Files.lines(filePath)
                         .filter(e -> (ifSavingMode(e)
-                                && !ifAllUpperCase(e)
+                                && !ifUpperCaseOrNumeric(e)
                                 && !e.equals("©Kancelaria Sejmu")
                                 && !e.startsWith("Rozdział")))
                         .map(AbstractDocumentParser::formatLine)
@@ -26,7 +26,7 @@ class ArticleParser extends AbstractDocumentParser {
         );
     }
 
-    private static boolean ifAllUpperCase(String s) {   // dates and other numeric strings return true!
+    private static boolean ifUpperCaseOrNumeric(String s) {
         for (char c : s.toCharArray())
             if (Character.isLetter(c) && Character.isLowerCase(c))
                 return false;

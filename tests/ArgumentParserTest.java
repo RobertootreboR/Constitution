@@ -60,7 +60,7 @@ public class ArgumentParserTest {
     public void testModifier() throws FileNotFoundException {
         String[] ar1255 = new String[]{"/home/robert/Pobrane/obiektowe-lab-master/lab8/konstytucja.txt", "-arka noego", "123"};
         exception4.expect(IllegalArgumentException.class);
-        new ArgumentParser().parseArguments(ar1255); 
+        new ArgumentParser().parseArguments(ar1255);
     }
 
     @Rule
