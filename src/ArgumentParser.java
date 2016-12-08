@@ -39,7 +39,7 @@ class ArgumentParser {
     private ParsingDetails parseArticleRange(String[] args) {
         int start = Integer.parseInt(args[2]);
         int end = Integer.parseInt(args[3]);
-        if (start < 1 || end > 243 || start >= end)
+        if (start < 1 || end > 244 || start >= end)
             throw new IllegalArgumentException("Remember, that there are only 243 articles available and the third parameter is bigger than the second one!");
         return new ParsingDetails(start, end, ParsingMode.Article, args[0]);
     }
